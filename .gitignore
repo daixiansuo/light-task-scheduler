@@ -3,5 +3,3 @@
 .DS_Store
 target
 /dist/
-/lts-admin/src/main/resources/lts-admin.cfg
-/lts-admin/src/main/resources/lts-monitor.cfg.cfg
