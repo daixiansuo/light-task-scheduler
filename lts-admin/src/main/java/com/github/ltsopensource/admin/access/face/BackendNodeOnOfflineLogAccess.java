@@ -6,6 +6,7 @@ import com.github.ltsopensource.admin.request.NodeOnOfflineLogPaginationReq;
 import java.util.List;
 
 /**
+ * 节点上下线日志访问处理器
  * @author Robert HG (254963746@qq.com) on 9/26/15.
  */
 public interface BackendNodeOnOfflineLogAccess {

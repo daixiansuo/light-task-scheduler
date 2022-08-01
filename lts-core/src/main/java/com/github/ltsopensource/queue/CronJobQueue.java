@@ -4,7 +4,7 @@ import com.github.ltsopensource.queue.domain.JobPo;
 import com.github.ltsopensource.store.jdbc.exception.DupEntryException;
 
 /**
- * 定时任务队列
+ * 正在执行的 任务队列
  *
  * @author Robert HG (254963746@qq.com) on 5/27/15.
  */

@@ -13,13 +13,37 @@ import com.github.ltsopensource.queue.*;
  */
 public class BackendAppContext extends AppContext {
 
+    /**
+     * 正在执行的 任务队列
+     */
     private CronJobQueue cronJobQueue;
+    /**
+     * 重复任务队列
+     */
     private RepeatJobQueue repeatJobQueue;
+    /**
+     * 等待执行的任务队列
+     */
     private ExecutableJobQueue executableJobQueue;
+    /**
+     * 正在执行的 任务队列
+     */
     private ExecutingJobQueue executingJobQueue;
+    /**
+     * 反馈客户端失败的任务结果队列
+     */
     private JobFeedbackQueue jobFeedbackQueue;
+    /**
+     * 暂停队列
+     */
     private SuspendJobQueue suspendJobQueue;
+    /**
+     * 节点分组存储
+     */
     private NodeGroupStore nodeGroupStore;
+    /**
+     * 执行任务日志记录器
+     */
     private JobLogger jobLogger;
     private Node node;
 
@@ -29,12 +53,22 @@ public class BackendAppContext extends AppContext {
     private BackendJVMGCAccess backendJVMGCAccess;
     private BackendJVMMemoryAccess backendJVMMemoryAccess;
     private BackendJVMThreadAccess backendJVMThreadAccess;
+
+    /**
+     * 节点上下线日志访问处理器
+     */
     private BackendNodeOnOfflineLogAccess backendNodeOnOfflineLogAccess;
 
+    /**
+     * 内存缓存访问处理器 - H2database
+     */
     private NodeMemCacheAccess nodeMemCacheAccess;
 
     private NoRelyJobGenerator noRelyJobGenerator;
 
+    /**
+     * 后端注册服务
+     */
     private BackendRegistrySrv backendRegistrySrv;
 
     public Node getNode() {

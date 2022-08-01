@@ -34,6 +34,7 @@ public class NodeApi extends AbstractMVC {
     public RestfulResponse getNodeList(NodePaginationReq request) {
         RestfulResponse response = new RestfulResponse();
         request.setLimit(10000);
+        // 获取现在节点列表信息，存储H2内存数据库
         PaginationRsp<Node> paginationRsp = appContext.getBackendRegistrySrv().getOnlineNodes(request);
 
         response.setSuccess(true);
