@@ -69,6 +69,7 @@ public class NodeApi extends AbstractMVC {
     public RestfulResponse addNodeGroup(NodeGroupRequest request) {
         RestfulResponse response = new RestfulResponse();
         appContext.getNodeGroupStore().addNodeGroup(request.getNodeType(), request.getNodeGroup());
+        // 创建队列，队列数据存在在数据库，数据源支持mysql、mongodb
         if (NodeType.TASK_TRACKER.equals(request.getNodeType())) {
             appContext.getExecutableJobQueue().createQueue(request.getNodeGroup());
         } else if (NodeType.JOB_CLIENT.equals(request.getNodeType())) {

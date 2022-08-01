@@ -7,14 +7,29 @@ import java.util.Date;
  */
 public class NodeOnOfflineLogPaginationReq extends PaginationReq {
 
+    /**
+     * 日志创建时间 - 开始
+     */
     private Date startLogTime;
 
+    /**
+     * 日志创建时间 - 结束
+     */
     private Date endLogTime;
 
+    /**
+     * 节点组
+     */
     private String group;
 
+    /**
+     * 节点标识
+     */
     private String identity;
 
+    /**
+     * 事件类型
+     */
     private String event;
 
     public String getIdentity() {
