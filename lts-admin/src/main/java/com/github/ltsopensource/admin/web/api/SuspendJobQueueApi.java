@@ -38,6 +38,7 @@ public class SuspendJobQueueApi extends AbstractMVC {
 
     @RequestMapping("/job-queue/suspend-job-get")
     public RestfulResponse suspendJobGet(JobQueueReq request) {
+        // table --> lts_suspend_job_queue (JobQueueUtils.SUSPEND_JOB_QUEUE)
         PaginationRsp<JobPo> paginationRsp = appContext.getSuspendJobQueue().pageSelect(request);
         RestfulResponse response = new RestfulResponse();
         response.setSuccess(true);

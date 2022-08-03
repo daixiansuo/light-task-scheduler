@@ -35,6 +35,7 @@ public class RepeatJobQueueApi extends AbstractMVC {
 
     @RequestMapping("/job-queue/repeat-job-get")
     public RestfulResponse repeatJobGet(JobQueueReq request) {
+        // table --> lts_repeat_job_queue (JobQueueUtils.REPEAT_JOB_QUEUE)
         PaginationRsp<JobPo> paginationRsp = appContext.getRepeatJobQueue().pageSelect(request);
         RestfulResponse response = new RestfulResponse();
         response.setSuccess(true);

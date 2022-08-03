@@ -116,6 +116,7 @@ public class JobQueueApi extends AbstractMVC {
 
     @RequestMapping("/job-queue/executing-job-get")
     public RestfulResponse executingJobGet(JobQueueReq request) {
+        // table --> lts_executing_job_queue
         PaginationRsp<JobPo> paginationRsp = appContext.getExecutingJobQueue().pageSelect(request);
         RestfulResponse response = new RestfulResponse();
         response.setSuccess(true);
