@@ -36,6 +36,7 @@ public class HttpCmd<Resp extends HttpCmdResponse> extends HttpCmdRequest {
             }
         }
         if (StringUtils.isNotEmpty(result)) {
+            // 序列化 支持SPI
             resp = JSON.parse(result, getResponseClass());
         }
         return resp;

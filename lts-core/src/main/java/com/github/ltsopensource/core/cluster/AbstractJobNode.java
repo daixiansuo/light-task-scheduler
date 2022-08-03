@@ -59,6 +59,10 @@ public abstract class AbstractJobNode<T extends Node, Context extends AppContext
         masterChangeListeners = new ArrayList<MasterChangeListener>();
     }
 
+
+    /**
+     * 启动节点
+     */
     final public void start() {
         try {
             if (started.compareAndSet(false, true)) {
@@ -71,14 +75,19 @@ public abstract class AbstractJobNode<T extends Node, Context extends AppContext
                 // 初始化HttpCmdServer
                 initHttpCmdServer();
 
+                // 前置处理
                 beforeRemotingStart();
 
+                // 节点间远程通信，启动
                 remotingStart();
 
+                // 后置处理
                 afterRemotingStart();
 
+                // 初始化 注册中心信息
                 initRegistry();
 
+                // 注册暴露 节点信息
                 registry.register(node);
 
                 AliveKeeping.start();
@@ -109,6 +118,9 @@ public abstract class AbstractJobNode<T extends Node, Context extends AppContext
                 new JVMInfoGetHttpCmd(appContext.getConfig()));        // 状态检查
     }
 
+    /**
+     * 停止节点
+     */
     final public void stop() {
         try {
             if (started.compareAndSet(true, false)) {
@@ -134,6 +146,10 @@ public abstract class AbstractJobNode<T extends Node, Context extends AppContext
         }
     }
 
+
+    /**
+     * 销毁节点
+     */
     @Override
     public void destroy() {
         try {

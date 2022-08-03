@@ -29,6 +29,13 @@ public class InjvmEventCenter implements EventCenter {
 
     private final ExecutorService executor = Executors.newFixedThreadPool(Constants.AVAILABLE_PROCESSOR * 2, new NamedThreadFactory("LTS-InjvmEventCenter-Executor", true));
 
+
+    /**
+     * 订阅主题
+     *
+     * @param subscriber 订阅者 ==> observer(观察者)
+     * @param topics     主题列表
+     */
     public void subscribe(EventSubscriber subscriber, String... topics) {
         for (String topic : topics) {
             Set<EventSubscriber> subscribers = ecMap.get(topic);
@@ -43,6 +50,11 @@ public class InjvmEventCenter implements EventCenter {
         }
     }
 
+    /**
+     * 取消订阅
+     * @param topic 主题
+     * @param subscriber 订阅者 ==> observer(观察者)
+     */
     public void unSubscribe(String topic, EventSubscriber subscriber) {
         Set<EventSubscriber> subscribers = ecMap.get(topic);
         if (subscribers != null) {
@@ -54,6 +66,11 @@ public class InjvmEventCenter implements EventCenter {
         }
     }
 
+
+    /**
+     * 发布事件 - 同步
+     * @param eventInfo 事件信息（topic、params）
+     */
     public void publishSync(EventInfo eventInfo) {
         Set<EventSubscriber> subscribers = ecMap.get(eventInfo.getTopic());
         if (subscribers != null) {
@@ -69,6 +86,10 @@ public class InjvmEventCenter implements EventCenter {
         }
     }
 
+    /**
+     * 发布事件 - 异步
+     * @param eventInfo 事件信息（topic、params）
+     */
     public void publishAsync(final EventInfo eventInfo) {
         executor.submit(new Runnable() {
             @Override

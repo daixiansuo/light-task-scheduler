@@ -10,19 +10,40 @@ import java.util.Date;
  */
 public class JobLoggerRequest extends PaginationReq {
 
+    /**
+     * 前端页面 搜索填写的 任务ID
+     */
     private String realTaskId;
     private String taskId;
 
+    /**
+     * 节点组
+     */
     private String taskTrackerNodeGroup;
 
+    /**
+     * 日志类型
+     */
     private String logType;
 
+    /**
+     * 日志等级
+     */
     private String level;
 
+    /**
+     * 执行结果
+     */
     private String success;
 
+    /**
+     * 开始时间
+     */
     private Date startLogTime;
 
+    /**
+     * 结束时间
+     */
     private Date endLogTime;
 
     public String getRealTaskId() {

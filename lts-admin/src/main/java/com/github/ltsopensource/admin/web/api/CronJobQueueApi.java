@@ -37,6 +37,7 @@ public class CronJobQueueApi extends AbstractMVC {
 
     @RequestMapping("/job-queue/cron-job-get")
     public RestfulResponse cronJobGet(JobQueueReq request) {
+        // table --> lts_cron_job_queue
         PaginationRsp<JobPo> paginationRsp = appContext.getCronJobQueue().pageSelect(request);
         RestfulResponse response = new RestfulResponse();
         response.setSuccess(true);
@@ -62,9 +63,12 @@ public class CronJobQueueApi extends AbstractMVC {
             if (nextTriggerTime == null) {
                 return Builder.build(false, StringUtils.format("该CronExpression={} 已经没有执行时间点! 请重新设置或者直接删除。", request.getCronExpression()));
             }
+            // 查询job
             JobPo oldJobPo = appContext.getCronJobQueue().getJob(request.getJobId());
+            // 更新job信息
             boolean success = appContext.getCronJobQueue().selectiveUpdateByJobId(request);
             if (success) {
+                // 再次查询新的job任务信息
                 JobPo newJobPo = appContext.getCronJobQueue().getJob(request.getJobId());
                 try {
                     // 判断是否有relyOnPrevCycle变更
@@ -77,6 +81,7 @@ public class CronJobQueueApi extends AbstractMVC {
                         if (cronExpressionChanged) {
                             request.setTriggerTime(nextTriggerTime);
                         }
+                        // 更新数据库数据
                         appContext.getExecutableJobQueue().selectiveUpdateByJobId(request);
                     } else {
                         // 2. 需要对批量任务做处理

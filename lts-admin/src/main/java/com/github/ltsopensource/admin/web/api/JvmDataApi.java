@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 
 /**
+ * 节点管理 - 节点JVM信息
+ * 使用http请求 monitor-agent 节点接口，获取jvm信息数据
+ *
  * @author Robert HG (254963746@qq.com) on 9/28/15.
  */
 @RestController

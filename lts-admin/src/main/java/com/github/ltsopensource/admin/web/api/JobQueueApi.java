@@ -180,6 +180,11 @@ public class JobQueueApi extends AbstractMVC {
         }
     }
 
+
+    /**
+     * 任务日志
+     * @param request 查询请求参数
+     */
     @RequestMapping("/job-logger/job-logger-get")
     public RestfulResponse jobLoggerGet(JobLoggerRequest request) {
         RestfulResponse response = new RestfulResponse();
@@ -317,6 +322,7 @@ public class JobQueueApi extends AbstractMVC {
         httpCmd.setCommand(HttpCmdNames.HTTP_CMD_ADD_JOB);
         httpCmd.addParam("job", JSON.toJSONString(job));
 
+        // 获取在线的 JOB_TRACKER 类型节点信息
         List<Node> jobTrackerNodeList = appContext.getNodeMemCacheAccess().getNodeByNodeType(NodeType.JOB_TRACKER);
         if (CollectionUtils.isEmpty(jobTrackerNodeList)) {
             return new Pair<Boolean, String>(false, I18nManager.getMessage("job.tracker.not.found"));
@@ -325,6 +331,7 @@ public class JobQueueApi extends AbstractMVC {
         HttpCmdResponse response = null;
         for (Node node : jobTrackerNodeList) {
             httpCmd.setNodeIdentity(node.getIdentity());
+            // TODO：成功一次 就跳出？？
             response = HttpCmdClient.doGet(node.getIp(), node.getHttpCmdPort(), httpCmd);
             if (response.isSuccess()) {
                 return new Pair<Boolean, String>(true, "Add success");

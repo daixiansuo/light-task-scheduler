@@ -13,7 +13,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class HttpCmdContext {
 
     private ReentrantLock lock = new ReentrantLock();
-    private final Map<String/*节点标识*/, Map<String/*cmd*/, HttpCmdProc>>
+
+    /**
+     * Key: 节点标识
+     * Value: <cmd, cmdProcess>   ---->  k: 命令  v: 对应处理器
+     */
+    private final Map<String, Map<String, HttpCmdProc>>
             NODE_PROCESSOR_MAP = new HashMap<String, Map<String, HttpCmdProc>>();
 
     public void addCmdProcessor(HttpCmdProc proc) {
@@ -27,16 +32,20 @@ public class HttpCmdContext {
         String command = proc.getCommand();
         Assert.hasText(command, "command can't be empty");
 
+        // 根据 NODE唯一标识 获取节点命令集
         Map<String, HttpCmdProc> cmdProcessorMap = NODE_PROCESSOR_MAP.get(identity);
         if (cmdProcessorMap == null) {
             lock.lock();
             cmdProcessorMap = NODE_PROCESSOR_MAP.get(identity);
             if (cmdProcessorMap == null) {
+                // 不存在，创建
                 cmdProcessorMap = new ConcurrentHashMap<String, HttpCmdProc>();
+                // 添加值hash
                 NODE_PROCESSOR_MAP.put(identity, cmdProcessorMap);
             }
             lock.unlock();
         }
+        // 创建成功之后，添加命令 与 对应的处理器
         cmdProcessorMap.put(command, proc);
     }
 

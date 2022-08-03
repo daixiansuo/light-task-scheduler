@@ -9,13 +9,31 @@ import java.util.Map;
 public class JobQueueReq extends PaginationReq {
 
     // ------------ 下面是查询条件值 ---------------
+    /**
+     * jobId
+     */
     private String jobId;
+    /**
+     * 任务类型
+     */
     private String jobType;
+    /**
+     * 任务ID
+     */
     private String taskId;
+    /**
+     * 真实任务ID
+     */
     private String realTaskId;
 
+    /**
+     * 提交节点组
+     */
     private String submitNodeGroup;
 
+    /**
+     * 执行节点组
+     */
     private String taskTrackerNodeGroup;
 
     private Date startGmtCreated;
@@ -25,22 +43,49 @@ public class JobQueueReq extends PaginationReq {
 
     // ------------ 下面是能update的值 -------------------
 
+    /**
+     * Cron任务 - cron 表达式
+     */
     private String cronExpression;
 
+    /**
+     * 是否需要反馈客户端
+     */
     private Boolean needFeedback;
 
+    /**
+     * 用户参数
+     */
     private Map<String, String> extParams;
 
+    /**
+     * 定时任务 - 触发时间
+     */
     private Date triggerTime;
 
+    /**
+     * 优先级
+     */
     private Integer priority;
 
+    /**
+     * 最大重试次数
+     */
     private Integer maxRetryTimes;
 
+    /**
+     * Repeat任务 - 重复次数
+     */
     private Integer repeatCount;
 
+    /**
+     * Repeat任务 - 触发时间间隔
+     */
     private Long repeatInterval;
 
+    /**
+     * 是否依赖上一周期
+     */
     private Boolean relyOnPrevCycle;
 
     public String getJobType() {
