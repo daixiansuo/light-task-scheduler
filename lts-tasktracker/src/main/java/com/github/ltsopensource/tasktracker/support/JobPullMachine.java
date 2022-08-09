@@ -90,6 +90,7 @@ public class JobPullMachine {
         try {
             if (start.compareAndSet(false, true)) {
                 if (scheduledFuture == null) {
+                    // 每间隔一秒，向 JobTracker 节点发送拉取任务的请求
                     scheduledFuture = executorService.scheduleWithFixedDelay(worker, jobPullFrequency * 1000, jobPullFrequency * 1000, TimeUnit.MILLISECONDS);
                 }
                 LOGGER.info("Start Job pull machine success!");

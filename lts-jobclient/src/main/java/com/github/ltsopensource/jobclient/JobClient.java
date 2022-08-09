@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Robert HG (254963746@qq.com) on 7/25/14.
- *         任务客户端
+ * 任务客户端
  */
 public class JobClient<T extends JobClientNode, Context extends AppContext> extends
         AbstractClientNode<JobClientNode, JobClientAppContext> {
@@ -79,6 +79,13 @@ public class JobClient<T extends JobClientNode, Context extends AppContext> exte
         return protectSubmit(Collections.singletonList(job));
     }
 
+    /**
+     * 过载保护提交
+     *
+     * @param jobs 工作列表
+     * @return Response
+     * @throws JobSubmitException 提交异常
+     */
     private Response protectSubmit(List<Job> jobs) throws JobSubmitException {
         return protector.execute(jobs, new JobSubmitExecutor<Response>() {
             @Override
